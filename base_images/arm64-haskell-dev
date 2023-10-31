@@ -1,0 +1,17 @@
+FROM arm64v8/haskell
+
+RUN apt-get -y update &&\
+apt-get -y install cmake gettext unzip curl
+
+RUN git clone https://github.com/neovim/neovim &&\
+	cd neovim &&\
+	make install &&\
+	cd ../ &&\
+	rm -rf neovim
+
+RUN mkdir /root/.config && mkdir /root/.config/nvim &&\
+	git clone https://github.com/hammad-r-javed/nvim_init.git &&\
+    cp nvim_init/init.vim /root/.config/nvim/init.vim &&\
+    rm -rf nvim_init
+
+CMD ["ghci"]
