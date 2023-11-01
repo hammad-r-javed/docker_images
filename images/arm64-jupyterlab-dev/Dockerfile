@@ -5,10 +5,8 @@ RUN apt-get -y update &&\
 
 RUN apt-get -y install net-tools
 
-RUN pip3 install jupyterlab netifaces
+RUN pip3 install jupyterlab netifaces numpy matplotlib
 
-COPY run.py /run.py
+EXPOSE 3000
 
-EXPOSE 8888
-
-ENTRYPOINT ["python3", "run.py"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--port=3000", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
